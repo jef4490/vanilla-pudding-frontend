@@ -1,9 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 
 const Test = () => {
   return (
       <div>
-        This is the best part of React.
+        <p>Links:</p>
+        <Link to={'/clients'}>Clients</Link>
       </div>
   )
 }

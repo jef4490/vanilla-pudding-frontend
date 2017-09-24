@@ -5,6 +5,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import axios from 'axios'
 import './App.css';
 import Test from './test.js'
 import Clients from './components/Clients.js'
@@ -18,9 +19,6 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <h2>Vanilla Pudding</h2>
           </div>
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
           <Route exact path='/' component={Test} />
         <Route exact path='/clients' component={Clients} />
         </div>

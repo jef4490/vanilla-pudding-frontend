@@ -3,20 +3,24 @@ import axios from 'axios';
 import {VanillaPuddingApi} from '../components/constants';
 
 class Clients extends React.Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
 
     this.state={
       clients: []
     }
   }
 
-  componentDidMount(){
+  getClients(){
     debugger;
+    alert(VanillaPuddingApi)
+  }
+
+  componentDidMount(){
     axios
       .get(`${VanillaPuddingApi}/clients`)
       .then(({data}) => {
-        debugger;
+        this.setState({clients: data})
       })
       .catch((errors)=>{
         console.log(errors)
@@ -25,12 +29,21 @@ class Clients extends React.Component {
 
 
   render() {
+    let showClients = this.state.clients.map((element) => {
+      debugger;
+        return(<li>
+          {element.name}
+        </li>)
+    })
     return (
       <div>
-        HERE ARE THE CLIENTS!
+        <h3>Clients:</h3>
+        <ul>
+          {showClients}
+        </ul>
       </div>
     );
   }
 }
 
-export default Clients
+export default Clients;
