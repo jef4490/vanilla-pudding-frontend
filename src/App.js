@@ -9,6 +9,7 @@ import axios from 'axios'
 import './App.css';
 import Test from './test.js'
 import Clients from './components/Clients.js'
+import Orders from './components/Orders.js'
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
           </div>
         <Route exact path='/' component={Test} />
         <Route exact path='/clients' component={Clients} />
+        <Route exact path='/orders' component={Orders} />
         </div>
       </Router>
     );
