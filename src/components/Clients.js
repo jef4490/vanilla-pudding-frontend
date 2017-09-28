@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {VanillaPuddingApi} from '../components/constants';
+import Client from './Client';
 
 class Clients extends React.Component {
   constructor(props){
@@ -12,7 +13,6 @@ class Clients extends React.Component {
   }
 
   getClients(){
-    debugger;
     alert(VanillaPuddingApi)
   }
 
@@ -30,11 +30,9 @@ class Clients extends React.Component {
 
   render() {
     let showClients = this.state.clients.map((element) => {
-      debugger;
-        return(<li>
-          {element.name}
-        </li>)
+        return(<Client Name={element.name}/>)
     })
+
     return (
       <div>
         <h3>Clients:</h3>
