@@ -1,8 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import {
+ConnectedRouter as Router,
+routerMiddleware
+} from 'react-router-redux'
+import createHistory from 'history/createBrowserHistory'
+import thunk from 'redux-thunk'
+import { Route, Link} from 'react-router-dom'
+import { composeWithDevTools } from 'redux-devtools-extension';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from './App';
+import './index.css';
+import rootReducer from './reducers';
+
+const history = createHistory()
+const rMiddleware = routerMiddleware(history)
+
+let initialState={
+  clients: {clients: ["bob"]},
+  orders: {orders: []}
+}
+
+let store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(thunk, rMiddleware)))
+
+ReactDOM.render(<Provider store={store}>
+                <App />
+                </Provider>, document.getElementById('root'));
 registerServiceWorker();

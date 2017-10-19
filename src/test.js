@@ -6,6 +6,8 @@ const Test = () => {
       <div>
         <p>Links:</p>
         <Link to={'/clients'}>Clients</Link>
+        <br/>
+        <Link to={'/orders'}>Orders</Link>
       </div>
   )
 }

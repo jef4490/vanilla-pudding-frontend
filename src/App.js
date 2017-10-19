@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from 'react-router-dom'
-import axios from 'axios'
+import {  bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import './App.css';
 import Test from './test.js'
 import Clients from './components/Clients.js'
@@ -29,4 +29,19 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return ({
+    clients: state.clients,
+    orders: state.orders
+  })
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({
+//
+//   }, dispatch)
+// }
+
+const ConnectedApp = connect(mapStateToProps)(App)
+
+export default ConnectedApp
