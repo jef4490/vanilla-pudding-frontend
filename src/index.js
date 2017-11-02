@@ -20,7 +20,17 @@ const history = createHistory()
 const rMiddleware = routerMiddleware(history)
 
 let initialState={
-  clients: {clients: ["bob"]},
+  clients: {
+    clients: ["bob"],
+    editClient: {
+      client: {
+        clientId: 0,
+        emailAddress: "",
+        name: "",
+        notes: "",
+        phoneNumber: ""
+      },
+    showDialog: false}},
   orders: {orders: []}
 }
 
