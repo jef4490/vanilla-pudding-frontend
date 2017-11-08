@@ -4,7 +4,7 @@ import '../App.css';
 const Client = (props) => {
   return(
     <div>
-      {props.Name}
+      <span>{props.Name}</span> <a href="#" onClick={props.editClient}>(Edit)</a>
     </div>
   )
 }
