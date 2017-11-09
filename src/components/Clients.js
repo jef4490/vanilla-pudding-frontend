@@ -4,7 +4,7 @@ import {  bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 
 import {VanillaPuddingApi} from '../components/constants';
-import { getClients, editClient, submitActiveClient } from '../actions'
+import { getClients, editClient, submitActiveClient, deleteClient } from '../actions'
 import Client from './Client';
 import Modal from 'react-modal';
 
@@ -26,8 +26,9 @@ class Clients extends React.Component {
     this.submitActiveClient = this.submitActiveClient.bind(this)
   }
 
-  handleName(event){
-    this.setState({activeClient: Object.assign({}, this.state.activeClient, {name: event.target.value})})
+  handleName(fieldName, event){
+    debugger;
+    this.setState({activeClient: Object.assign({}, this.state.activeClient, {[fieldName]: event.target.value})})
   }
 
   submitActiveClient(){
@@ -45,7 +46,7 @@ class Clients extends React.Component {
 
   render() {
     let showClients = this.props.clients.clients.map((element) => {
-        return(<Client Name={element.name} editClient={this.props.editClient.bind(null, element.clientId)}/>)
+        return(<Client key={element.clientId} Name={element.name} editClient={this.props.editClient.bind(null, element.clientId)} deleteClient={this.props.deleteClient.bind(null, element.clientId)}/>)
     })
 
     return (
@@ -53,13 +54,14 @@ class Clients extends React.Component {
         <Modal
           isOpen={this.props.showDialog}
           contentLabel="Edit Client"
+          shouldCloseOnOverlayClick={true}
         >
           <h3>Edit Client</h3>
           <div>
             <label>Email Address</label> <input type='textbox' value={this.state.activeClient.emailAddress}></input>
           </div>
           <div>
-            <label>Name</label> <input type='textbox' onChange={this.handleName} value={this.state.activeClient.name}></input>
+            <label>Name</label> <input type='textbox' onChange={this.handleName.bind(null, "name")} value={this.state.activeClient.name}></input>
           </div>
           <div>
             <label>Phone Number</label> <input type='textbox' value={this.state.activeClient.phoneNumber}></input>
@@ -92,6 +94,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     getClients: getClients,
     editClient: editClient,
+    deleteClient: deleteClient,
     submitActiveClient: submitActiveClient
   }, dispatch)
 }
