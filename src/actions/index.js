@@ -17,7 +17,7 @@ export function getClients(){
   }
 }
 
-export function submitActiveClient(client){
+export function updateClient(client){
   return (dispatch) => {
     axios
       .post(`${VanillaPuddingApi}/clients/AddEdit`, client)
@@ -33,10 +33,19 @@ export function submitActiveClient(client){
   }
 }
 
-export const editClient = (clientId) => {
-  return{
-    type: "EDIT_CLIENT",
-    payload: clientId
+export function addClient(client){
+  return (dispatch) => {
+    axios
+      .post(`${VanillaPuddingApi}/clients/AddEdit`, client)
+      .then(({data}) => {
+        dispatch({
+          type: "ADD_CLIENT",
+          payload: data
+        })
+      })
+      .catch((errors)=>{
+        console.log(errors)
+      })
   }
 }
 
