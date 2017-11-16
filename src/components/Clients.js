@@ -4,7 +4,7 @@ import {  bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 
 import {VanillaPuddingApi} from '../components/constants';
-import { getClients, editClient, submitActiveClient, deleteClient } from '../actions'
+import { getClients, editClient, updateClient, deleteClient, addClient } from '../actions'
 import Client from './Client';
 import Modal from 'react-modal';
 
@@ -19,20 +19,29 @@ class Clients extends React.Component {
         name: "",
         notes: "",
         phoneNumber: ""
-      }
+      },
+      showDialog: false
     }
 
-    this.handleName = this.handleName.bind(this)
-    this.submitActiveClient = this.submitActiveClient.bind(this)
+    this.handleField = this.handleField.bind(this)
+    this.updateClient = this.updateClient.bind(this)
+    this.editClient = this.editClient.bind(this)
+    this.newClient = this.newClient.bind(this)
   }
 
-  handleName(fieldName, event){
-    debugger;
+  handleField(fieldName, event){
     this.setState({activeClient: Object.assign({}, this.state.activeClient, {[fieldName]: event.target.value})})
   }
 
-  submitActiveClient(){
-    this.props.submitActiveClient(this.state.activeClient)
+  updateClient(){
+    this.setState({showDialog: false})
+
+    if(this.state.activeClient.clientId == 0){
+      this.props.addClient(this.state.activeClient)
+    }else{
+      this.props.updateClient(this.state.activeClient)
+    }
+
   }
 
   componentDidMount(){
@@ -40,43 +49,60 @@ class Clients extends React.Component {
     }
 
   componentWillReceiveProps(nextProps){
-    this.setState({activeClient: nextProps.activeClient})
   }
 
+  editClient(clientId){
+    this.setState({showDialog: true, activeClient: this.props.clients.clients.find((client) => {return client.clientId === clientId})})
+  }
+
+  newClient(){
+    this.setState({
+      activeClient: {
+        clientId: 0,
+        emailAddress: "",
+        name: "",
+        notes: "",
+        phoneNumber: ""
+      },
+      showDialog: true
+    })
+  }
 
   render() {
     let showClients = this.props.clients.clients.map((element) => {
-        return(<Client key={element.clientId} Name={element.name} editClient={this.props.editClient.bind(null, element.clientId)} deleteClient={this.props.deleteClient.bind(null, element.clientId)}/>)
+        return(<Client key={element.clientId} Name={element.name} editClient={this.editClient.bind(null, element.clientId)} deleteClient={this.props.deleteClient.bind(null, element.clientId)}/>)
     })
 
     return (
       <div>
         <Modal
-          isOpen={this.props.showDialog}
+          isOpen={this.state.showDialog}
           contentLabel="Edit Client"
           shouldCloseOnOverlayClick={true}
+          onRequestClose={() => {this.setState({showDialog: false})}}
         >
           <h3>Edit Client</h3>
           <div>
-            <label>Email Address</label> <input type='textbox' value={this.state.activeClient.emailAddress}></input>
+            <label>Email Address</label> <input type='textbox' onChange={this.handleField.bind(null, "emailAddress")} value={this.state.activeClient.emailAddress}></input>
           </div>
           <div>
-            <label>Name</label> <input type='textbox' onChange={this.handleName.bind(null, "name")} value={this.state.activeClient.name}></input>
+            <label>Name</label> <input type='textbox' onChange={this.handleField.bind(null, "name")} value={this.state.activeClient.name}></input>
           </div>
           <div>
-            <label>Phone Number</label> <input type='textbox' value={this.state.activeClient.phoneNumber}></input>
+            <label>Phone Number</label> <input type='textbox' onChange={this.handleField.bind(null, "phoneNumber")} value={this.state.activeClient.phoneNumber}></input>
           </div>
           <div>
-            <label>Notes</label> <input type='textbox' value={this.state.activeClient.notes}></input>
+            <label>Notes</label> <input type='textbox' onChange={this.handleField.bind(null, "notes")} value={this.state.activeClient.notes}></input>
           </div>
           <div>
-            <button onClick={this.submitActiveClient}>Submit</button>
+            <button onClick={this.updateClient}>Submit</button>
           </div>
         </Modal>
         <h3>Clients:</h3>
         <ul>
           {showClients}
         </ul>
+        <button onClick={this.newClient}>Create New</button>
       </div>
     );
   }
@@ -84,18 +110,16 @@ class Clients extends React.Component {
 
 const mapStateToProps = (state) => {
   return ({
-    clients: state.clients,
-    showDialog: state.clients.editClient.showDialog,
-    activeClient: state.clients.editClient.client
+    clients: state.clients
   })
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     getClients: getClients,
-    editClient: editClient,
     deleteClient: deleteClient,
-    submitActiveClient: submitActiveClient
+    updateClient: updateClient,
+    addClient: addClient
   }, dispatch)
 }
 
