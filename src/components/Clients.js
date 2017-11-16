@@ -2,11 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import {  bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
+import Modal from 'react-modal';
 
 import {VanillaPuddingApi} from '../components/constants';
 import { getClients, editClient, updateClient, deleteClient, addClient } from '../actions'
 import Client from './Client';
-import Modal from 'react-modal';
+import ObjectForm from './ObjectForm';
 
 class Clients extends React.Component {
   constructor(props){
@@ -48,9 +49,6 @@ class Clients extends React.Component {
     this.props.getClients()
     }
 
-  componentWillReceiveProps(nextProps){
-  }
-
   editClient(clientId){
     this.setState({showDialog: true, activeClient: this.props.clients.clients.find((client) => {return client.clientId === clientId})})
   }
@@ -81,22 +79,11 @@ class Clients extends React.Component {
           shouldCloseOnOverlayClick={true}
           onRequestClose={() => {this.setState({showDialog: false})}}
         >
-          <h3>Edit Client</h3>
-          <div>
-            <label>Email Address</label> <input type='textbox' onChange={this.handleField.bind(null, "emailAddress")} value={this.state.activeClient.emailAddress}></input>
-          </div>
-          <div>
-            <label>Name</label> <input type='textbox' onChange={this.handleField.bind(null, "name")} value={this.state.activeClient.name}></input>
-          </div>
-          <div>
-            <label>Phone Number</label> <input type='textbox' onChange={this.handleField.bind(null, "phoneNumber")} value={this.state.activeClient.phoneNumber}></input>
-          </div>
-          <div>
-            <label>Notes</label> <input type='textbox' onChange={this.handleField.bind(null, "notes")} value={this.state.activeClient.notes}></input>
-          </div>
-          <div>
-            <button onClick={this.updateClient}>Submit</button>
-          </div>
+          <ObjectForm object={this.state.activeClient}
+                      title="Edit Client"
+                      fieldHandler={this.handleField}
+                      submitHandler={this.updateClient}
+                      hiddenFields={["clientId", "contacts"]}/>
         </Modal>
         <h3>Clients:</h3>
         <ul>
