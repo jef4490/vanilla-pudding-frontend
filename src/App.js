@@ -7,19 +7,32 @@ import {
 import {  bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import './App.css';
+import Navbar from './components/Navbar.js';
+
 import Test from './test.js'
 import Clients from './components/Clients.js'
 import Orders from './components/Orders.js'
 
 class App extends Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      showPopover: true
+    }
+
+    this.togglePopover = this.togglePopover.bind(this)
+  }
+
+  togglePopover(){
+    this.setState({showPopover: !this.state.showPopover})
+  }
+
   render() {
     return (
       <Router>
         <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h2>Vanilla Pudding</h2>
-          </div>
+        <Navbar togglePopover={this.togglePopover} showMenu={this.state.showPopover}/>
         <Route exact path='/' component={Test} />
         <Route exact path='/clients' component={Clients} />
         <Route exact path='/orders' component={Orders} />

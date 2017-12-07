@@ -3,6 +3,8 @@ import axios from 'axios';
 import {  bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 import Modal from 'react-modal';
+import Button from 'material-ui/Button';
+
 
 import {VanillaPuddingApi} from '../components/constants';
 import { getClients, editClient, updateClient, deleteClient, addClient } from '../actions'
@@ -90,6 +92,9 @@ class Clients extends React.Component {
           {showClients}
         </ul>
         <button onClick={this.newClient}>Create New</button>
+        <Button raised color="primary"  onClick={()=>{console.log('hi')}}>
+         Hello World
+       </Button>
       </div>
     );
   }
