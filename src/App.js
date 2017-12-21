@@ -18,7 +18,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      showPopover: true
+      showPopover: false
     }
 
     this.togglePopover = this.togglePopover.bind(this)

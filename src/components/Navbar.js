@@ -37,7 +37,7 @@ function Navbar(props) {
           <Menu
             id="simple-menu"
             open={props.showMenu}
-            onRequestClose={props.togglePopover}
+            onClose={props.togglePopover}
           >
             <MenuItem onClick={props.togglePopover}>Profile</MenuItem>
             <MenuItem onClick={props.togglePopover}>My account</MenuItem>
