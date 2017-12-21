@@ -32,13 +32,14 @@ const styles = theme => ({
 
 export const mainMenuItems = (
   <div>
+    <Link to='/clients'>
       <ListItem button>
         <ListItemIcon>
           <InboxIcon />
         </ListItemIcon>
         <ListItemText primary="Clients" />
       </ListItem>
-
+    </Link>
     <Link to='/orders'>
       <ListItem button>
         <ListItemIcon>
