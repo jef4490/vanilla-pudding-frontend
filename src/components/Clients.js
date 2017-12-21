@@ -5,10 +5,10 @@ import { connect } from 'react-redux'
 import Modal from 'react-modal';
 import Button from 'material-ui/Button';
 
-
 import {VanillaPuddingApi} from '../components/constants';
 import { getClients, editClient, updateClient, deleteClient, addClient } from '../actions'
 import Client from './Client';
+import ClientDataTable from './ClientDataTable';
 import ObjectForm from './ObjectForm';
 
 class Clients extends React.Component {
@@ -87,6 +87,8 @@ class Clients extends React.Component {
                       submitHandler={this.updateClient}
                       hiddenFields={["clientId", "contacts"]}/>
         </Modal>
+        <ClientDataTable clients={this.props.clients.clients}/>
+
         <h3>Clients:</h3>
         <ul>
           {showClients}
