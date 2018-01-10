@@ -33,7 +33,6 @@ class ClientDataTable extends React.Component {
   }
 
   render() {
-    debugger;
     return (
       <Table
         rowsCount={this.props.clients.length}

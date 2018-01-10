@@ -75,28 +75,22 @@ class Clients extends React.Component {
 
     return (
       <div>
-        <Modal
-          isOpen={this.state.showDialog}
-          contentLabel="Edit Client"
-          shouldCloseOnOverlayClick={true}
-          onRequestClose={() => {this.setState({showDialog: false})}}
-        >
-          <ObjectForm object={this.state.activeClient}
-                      title="Edit Client"
-                      fieldHandler={this.handleField}
-                      submitHandler={this.updateClient}
-                      hiddenFields={["clientId", "contacts"]}/>
-        </Modal>
         <ClientDataTable clients={this.props.clients.clients}/>
-
-        <h3>Clients:</h3>
-        <ul>
-          {showClients}
-        </ul>
-        <button onClick={this.newClient}>Create New</button>
-        <Button raised color="primary"  onClick={()=>{console.log('hi')}}>
-         Hello World
+        <Button raised color="primary"  style={{marginTop: "1em"}} onClick={this.newClient}>
+         Create New
        </Button>
+       <Modal
+         isOpen={this.state.showDialog}
+         contentLabel="Edit Client"
+         shouldCloseOnOverlayClick={true}
+         onRequestClose={() => {this.setState({showDialog: false})}}
+       >
+         <ObjectForm object={this.state.activeClient}
+                     title="Edit Client"
+                     fieldHandler={this.handleField}
+                     submitHandler={this.updateClient}
+                     hiddenFields={["clientId", "contacts"]}/>
+       </Modal>
       </div>
     );
   }
