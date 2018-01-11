@@ -48,8 +48,8 @@ export const mainMenuItems = (
         <ListItemText primary="Orders" />
       </ListItem>
     </Link>
-    <Link to='/orders' button>
-      <ListItem>
+    <Link to='/orders'>
+      <ListItem button>
         <ListItemIcon>
           <InboxIcon />
         </ListItemIcon>

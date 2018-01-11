@@ -4,6 +4,7 @@ import {  bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 import Modal from 'react-modal';
 import Button from 'material-ui/Button';
+import {Link} from 'react-router-dom'
 
 import {VanillaPuddingApi} from '../components/constants';
 import { getClients, editClient, updateClient, deleteClient, addClient } from '../actions'
@@ -25,72 +26,21 @@ class Clients extends React.Component {
       },
       showDialog: false
     }
-
-    this.handleField = this.handleField.bind(this)
-    this.updateClient = this.updateClient.bind(this)
-    this.editClient = this.editClient.bind(this)
-    this.newClient = this.newClient.bind(this)
-  }
-
-  handleField(fieldName, event){
-    this.setState({activeClient: Object.assign({}, this.state.activeClient, {[fieldName]: event.target.value})})
-  }
-
-  updateClient(){
-    this.setState({showDialog: false})
-
-    if(this.state.activeClient.clientId == 0){
-      this.props.addClient(this.state.activeClient)
-    }else{
-      this.props.updateClient(this.state.activeClient)
-    }
-
   }
 
   componentDidMount(){
     this.props.getClients()
     }
 
-  editClient(clientId){
-    this.setState({showDialog: true, activeClient: this.props.clients.clients.find((client) => {return client.clientId === clientId})})
-  }
-
-  newClient(){
-    this.setState({
-      activeClient: {
-        clientId: 0,
-        emailAddress: "",
-        name: "",
-        notes: "",
-        phoneNumber: ""
-      },
-      showDialog: true
-    })
-  }
-
   render() {
-    let showClients = this.props.clients.clients.map((element) => {
-        return(<Client key={element.clientId} Name={element.name} editClient={this.editClient.bind(null, element.clientId)} deleteClient={this.props.deleteClient.bind(null, element.clientId)}/>)
-    })
-
     return (
       <div>
-        <ClientDataTable clients={this.props.clients.clients} deleteClient={this.props.deleteClient}/>
-        <Button raised color="primary"  style={{marginTop: "1em"}} onClick={this.newClient}>
-         Create New
-       </Button>
-       <Modal
-         isOpen={this.state.showDialog}
-         contentLabel="Edit Client"
-         shouldCloseOnOverlayClick={true}
-         onRequestClose={() => {this.setState({showDialog: false})}}
-       >
-         <ObjectForm object={this.state.activeClient}
-                     title="Edit Client"
-                     fieldHandler={this.handleField}
-                     submitHandler={this.updateClient}
-                     hiddenFields={["clientId", "contacts"]}/>
-       </Modal>
+        <ClientDataTable clients={this.props.clients.clients}/>
+        <Link to={'/clients/new'}>
+          <Button raised color="primary"  style={{marginTop: "1em"}} onClick={this.newClient}>
+           Create New
+          </Button>
+        </Link>
       </div>
     );
   }
