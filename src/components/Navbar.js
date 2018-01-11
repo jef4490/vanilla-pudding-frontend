@@ -19,6 +19,7 @@ import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import { mainMenuItems, adminMenuItems } from './NavbarDependencies/menuItems';
 
 import Clients from './Clients.js'
+import NewClient from './NewClient.js'
 import Orders from './Orders.js'
 import Test from '../test.js'
 
@@ -162,6 +163,7 @@ class MiniDrawer extends React.Component {
             <div className="App">
             <Route exact path='/' component={Test} />
             <Route exact path='/clients' component={Clients} />
+            <Route exact path='/clients/new' component={NewClient} />
             <Route exact path='/orders' component={Orders} />
             </div>
           </main>
