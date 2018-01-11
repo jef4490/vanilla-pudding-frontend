@@ -75,7 +75,7 @@ class Clients extends React.Component {
 
     return (
       <div>
-        <ClientDataTable clients={this.props.clients.clients}/>
+        <ClientDataTable clients={this.props.clients.clients} deleteClient={this.props.deleteClient}/>
         <Button raised color="primary"  style={{marginTop: "1em"}} onClick={this.newClient}>
          Create New
        </Button>
