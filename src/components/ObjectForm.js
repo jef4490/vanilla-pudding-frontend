@@ -2,9 +2,9 @@ import React from 'react';
 import '../App.css';
 
 const ObjectForm = (props) => {
-  var fields = Object.keys(props.object).filter((key) => {return !props.hiddenFields.includes(key)}).map((key) => {
+  var fields = Object.keys(props.object).filter((key) => {return !props.hiddenFields.includes(key)}).map((key, index) => {
     let propertyValue = props.object[key]
-    return <div><label>{key}</label><input onChange={props.fieldHandler.bind(null, key)}value={propertyValue} handler></input></div>
+    return <div key={index}><label>{key}</label><input onChange={props.fieldHandler.bind(null, key)}value={propertyValue}></input></div>
   })
   return(
     <div>
