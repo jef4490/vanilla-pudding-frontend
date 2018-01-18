@@ -37,7 +37,7 @@ class Clients extends React.Component {
       <div>
         <ClientDataTable clients={this.props.clients.clients} deleteClient={this.props.deleteClient}/>
         <Link to={'/clients/new'}>
-          <Button raised color="primary"  style={{marginTop: "1em"}} onClick={this.newClient}>
+          <Button raised color="primary"  style={{marginTop: "1em"}}>
            Create New
           </Button>
         </Link>

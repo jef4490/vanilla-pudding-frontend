@@ -29,7 +29,11 @@ let initialState={
           phoneNumber: ""
         }]
     },
-  orders: {orders: []}
+  orders: {
+    orders: [
+      {orderId: 0}
+    ]
+  }
 }
 
 let store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(thunk, rMiddleware)))

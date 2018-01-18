@@ -21,6 +21,7 @@ import { mainMenuItems, adminMenuItems } from './NavbarDependencies/menuItems';
 import Clients from './Clients.js'
 import NewClient from './NewClient.js'
 import Orders from './Orders.js'
+import NewOrder from './NewOrder.js'
 import Test from '../test.js'
 
 const drawerWidth = 240;
@@ -165,6 +166,7 @@ class MiniDrawer extends React.Component {
             <Route exact path='/clients' component={Clients} />
             <Route exact path='/clients/new' component={NewClient} />
             <Route exact path='/orders' component={Orders} />
+            <Route exact path='/orders/new' component={NewOrder} />
             </div>
           </main>
         </div>
