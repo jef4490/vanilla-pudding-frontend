@@ -7,6 +7,7 @@ import { withStyles } from 'material-ui/styles';
 import green from 'material-ui/colors/green';
 
 import {VanillaPuddingApi} from '../components/constants';
+import {DeleteIcon, InfoIcon, EditIcon} from '../components/IconConstants';
 
 const styles = {
   iconHover: {
@@ -16,11 +17,7 @@ const styles = {
   },
 };
 
-const HomeIcon = props => (
-  <SvgIcon {...props}>
-    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-  </SvgIcon>
-);
+
 
 function loadHome(event){
   alert("Load Home");
@@ -45,7 +42,13 @@ class MyActionCell extends React.Component{
     return (
       <Cell>
         <IconButton onClick={() => {this.props.deleteClient(clientId)}}>
-          <HomeIcon color="primary" className={this.props.classes.iconHover}/>
+          <DeleteIcon color="primary" className={this.props.classes.iconHover}/>
+        </IconButton>
+        <IconButton onClick={() => {this.props.deleteClient(clientId)}}>
+          <InfoIcon color="primary" className={this.props.classes.iconHover}/>
+        </IconButton>
+        <IconButton onClick={() => {this.props.deleteClient(clientId)}}>
+          <EditIcon color="primary" className={this.props.classes.iconHover}/>
         </IconButton>
       </Cell>
     )
